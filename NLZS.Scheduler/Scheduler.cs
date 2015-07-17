@@ -9,6 +9,10 @@ namespace NLZS.Scheduling
     {
         public IEnumerable<EmployeeSchedule> Generate(IEnumerable<Employee> employees, IScoringFunction scoringFunction)
         {
+            foreach (var employee in employees)
+            {
+                
+            }
             return new List<EmployeeSchedule>() {new EmployeeSchedule(employees.First())};
         }
     }

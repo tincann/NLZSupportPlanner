@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using NLZS.Scheduling.Models;
 using NLZS.Scheduling.Scoring;
 
@@ -7,9 +7,9 @@ namespace NLZS.Scheduling
 {
     public class Scheduler
     {
-        public EmployeeSchedule Generate(IEnumerable<Employee> employees, EmployeeAvailability constraints, IScoringFunction scoringFunction)
+        public IEnumerable<EmployeeSchedule> Generate(IEnumerable<Employee> employees, IScoringFunction scoringFunction)
         {
-            return null;
+            return new List<EmployeeSchedule>() {new EmployeeSchedule(employees.First())};
         }
     }
 }

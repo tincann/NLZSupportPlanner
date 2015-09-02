@@ -5,7 +5,7 @@ namespace NLZS.Scheduling.Models
     public class EmployeeSchedule
     {
         public Employee Employee { get; private set; }
-        public readonly IEnumerable<EmployeeShift> Shifts = new List<EmployeeShift>();
+        public readonly IEnumerable<Duty> Shifts = new List<Duty>();
 
         public EmployeeSchedule(Employee employee)
         {

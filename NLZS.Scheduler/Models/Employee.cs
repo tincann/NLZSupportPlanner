@@ -1,39 +1,33 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace NLZS.Scheduling.Models
 {
     public class Employee
     {
-        public string Name { get; private set; }
-
-        public Employee(string name)
+        public Employee(string name, IEnumerable<int> available)
         {
             Name = name;
+            Availability = available;
         }
 
-        public Employee(string name, IEnumerable<int> available) : this(name)
+        public string Name { get; private set; }
+        public IEnumerable<int> Availability { get; private set; }
+
+        public override int GetHashCode()
         {
-            available.ToList().ForEach(x => _availability.Add(x));
+            return Name.GetHashCode();
         }
 
-        private readonly HashSet<int> _availability = new HashSet<int>();
-
-        public void SetAvailability(int timeSlot, bool available)
+        public override bool Equals(object obj)
         {
-            if (available)
-            {
-                _availability.Add(timeSlot);
-            }
-            else
-            {
-                _availability.Remove(timeSlot);
-            }
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return Equals((Employee) obj);
         }
 
-        public bool IsAvailable(int timeSlot)
+        protected bool Equals(Employee other)
         {
-            return _availability.Contains(timeSlot);
+            return string.Equals(Name, other.Name);
         }
     }
 }

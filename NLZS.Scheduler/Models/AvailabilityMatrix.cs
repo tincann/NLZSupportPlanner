@@ -7,7 +7,7 @@ namespace NLZS.Scheduling.Models
     {
         readonly Dictionary<int, List<Employee>> _matrix = new Dictionary<int, List<Employee>>();
         
-        public AvailabilityMatrix(IEnumerable<Employee> employees)
+        public AvailabilityMatrix(List<Employee> employees)
         {
             foreach (var employee in employees)
             {
@@ -18,7 +18,7 @@ namespace NLZS.Scheduling.Models
             }
         }
 
-        public IEnumerable<Employee> GetAvailableEmployees(int timeslot)
+        public List<Employee> GetAvailableEmployees(int timeslot)
         {
             if (_matrix.ContainsKey(timeslot))
             {

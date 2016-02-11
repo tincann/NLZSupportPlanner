@@ -8,30 +8,33 @@ namespace NLZS.Scheduling
 {
     public class Scheduler
     {
-        public IEnumerable<Duty> Generate(IEnumerable<Employee> employees, IEnumerable<int> requiredTimeslots, IScoringFunction scoringFunction)
+        public List<Duty> Generate(List<Employee> employees, List<int> requiredTimeslots, IScoringFunction scoringFunction)
         {
             var matrix = new AvailabilityMatrix(employees);
-            GenerateRandomSchedule(matrix, requiredTimeslots);
+            return GenerateRandomSchedule(matrix, requiredTimeslots);
         }
 
-        private IEnumerable<Duty> GenerateRandomSchedule(AvailabilityMatrix matrix, IEnumerable<int> requiredTimeslots)
+        private List<Duty> GenerateRandomSchedule(AvailabilityMatrix matrix, List<int> requiredTimeslots)
         {
-            int currentTimeslot = 0;
+            var duties = new List<Duty>(requiredTimeslots.Count);
             foreach (var timeslot in requiredTimeslots)
             {
                 var employees = matrix.GetAvailableEmployees(timeslot);
-                employees.
+                var employee = employees.GetRandom();
+                var duty = new Duty(timeslot, employee, timeslot % 2 == 0 ? DutyType.Week : DutyType.Weekend); //todo week weekend koppelen aan timeslot
+                duties.Add(duty);
             }
-            return null;
+            return duties;
         }
     }
 
     public static class ListExtension
     {
         private static Random _random = new Random();
-        public static T GetRandom<T>(this IEnumerable<T> list)
+        public static T GetRandom<T>(this List<T> list)
         {
-            var i = _random.Next(0, list.Count())
+            var i = _random.Next(0, list.Count);
+            return list[i];
         }
     }
 }

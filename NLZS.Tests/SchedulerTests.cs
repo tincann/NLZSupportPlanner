@@ -12,6 +12,8 @@ namespace NLZS.Tests
     [TestClass]
     public class SchedulerTests
     {
+        private static _247SupportScoringFunction _scoringfunction = new _247SupportScoringFunction();
+
         [TestMethod]
         public void CreateSimpleSchedule()
         {
@@ -25,17 +27,17 @@ namespace NLZS.Tests
                 new Employee("morten",  new[] { 0, 1, 11, 13, 14, 15})
             };
 
-            var schedule = scheduler.Generate(employees, Enumerable.Range(0, 15), new _247SupportScoringFunction());
+            var schedule = scheduler.Generate(employees, Enumerable.Range(0, 15).ToList(), _scoringfunction);
 
             PrintSchedule(employees, schedule);
         }
 
         private const int Padding = 2;
-        private static void PrintSchedule(List<Employee> employees, IEnumerable<Duty> duties)
+        private static void PrintSchedule(List<Employee> employees, List<Duty> duties)
         {
             var maxNameLength = employees.Max(x => x.Name.Length);
 
-            duties = duties.OrderBy(x => x.Timeslot);
+            duties = duties.OrderBy(x => x.Timeslot).ToList();
 
             Debug.Write(new string(' ', maxNameLength + Padding));
             Debug.Write(String.Join("  ", duties.Select(x => x.Timeslot)));
@@ -58,18 +60,18 @@ namespace NLZS.Tests
                 }
 
                 Debug.Write("    ");
-                PrintStatistics(employee, duties);
+                PrintStatistics(employee, duties.Where(x => Equals(x.Employee, employee)).ToList());
 
                 Debug.WriteLine("");
             }
         }
 
-        private static void PrintStatistics(Employee employee, IEnumerable<Duty> duties)
+        private static void PrintStatistics(Employee employee, List<Duty> duties)
         {
-            var empduties = duties.Where(x => x.Employee.Equals(employee));
+            var empduties = duties.Where(x => x.Employee.Equals(employee)).ToList();
             var weekCount = empduties.Count(x => x.Type == DutyType.Week);
             var weekendCount = empduties.Count(x => x.Type == DutyType.Weekend);
-            Debug.Write(String.Format("week: {0} weekend: {1}", weekCount, weekendCount));
+            Debug.Write(String.Format("week: {0} weekend: {1} score: {2}", weekCount, weekendCount, _scoringfunction.Calculate(duties)));
         }
     }
 }

@@ -1,9 +1,10 @@
-﻿using NLZS.Scheduling.Models;
+﻿using System.Collections.Generic;
+using NLZS.Scheduling.Models;
 
 namespace NLZS.Scheduling.Scoring
 {
     public interface IScoringFunction
     {
-        double Calculate(EmployeeSchedule schedule);
+        double Calculate(List<Duty> schedule);
     }
 }

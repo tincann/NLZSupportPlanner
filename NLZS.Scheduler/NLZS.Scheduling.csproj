@@ -43,11 +43,12 @@
     <Compile Include="Models\Duty.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\EmployeeSchedule.cs" />
+    <Compile Include="Models\NlzietSchedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Optimiser\ScheduleOptimiser.cs" />
     <Compile Include="Scheduler.cs" />
     <Compile Include="Models\DutyType.cs" />
-    <Compile Include="Scoring\247SupportSchedule.cs" />
+    <Compile Include="Scoring\_247SupportScoringFunction.cs" />
     <Compile Include="Scoring\IScoringFunction.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
